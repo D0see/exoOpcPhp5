@@ -38,6 +38,26 @@ class AdminController {
     }
 
     /**
+     * Affiche la page de monitoring.
+     * @return void
+     */
+    public function showMonitoring():void 
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
+        // On récupère les articles.
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->getAllArticles();
+
+        // On affiche la page d'administration.
+        $view = new View("Administration");
+        $view->render("monitoring", [
+            'articles' => $articles
+        ]);
+    }
+
+    /**
      * Affichage du formulaire de connexion.
      * @return void
      */
@@ -175,5 +195,23 @@ class AdminController {
        
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
+    }
+
+    /**
+     * Suppression d'un commentaire.
+     * @return void
+     */
+    public function deleteCommentaire() : void
+    {
+        $this->checkIfUserIsConnected();
+
+        $id = Utils::request("id", -1);
+
+        // On supprime l'article.
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getCommentById($id);
+        $commentManager->deleteComment($comment);
+       
+        Utils::redirect('showArticle', ['id' => $comment->getIdArticle()]);
     }
 }

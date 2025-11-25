@@ -26,13 +26,13 @@
         } else {
             echo '<ul>';
             foreach ($comments as $comment) {
-                echo '<li>';
+                echo '<li class="commentContainer">';
                 echo '  <div class="smiley">☻</div>';
                 echo '  <div class="detailComment">';
                 echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
                 echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
                 echo '  </div>';
-                echo ' <a href="index.php?action=deleteComment&id=' . $comment->getId() . '">supprimer le commentaire</a>';
+                echo ' <a class="deleteCommentButton" href="index.php?action=deleteComment&id=' . $comment->getId() . '">supprimer le commentaire</a>';
                 echo '</li>';
             }               
             echo '</ul>';

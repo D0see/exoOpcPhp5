@@ -350,3 +350,88 @@ footer {
     color: white;
     background-color: var(--headerColor);
 }
+
+.icon{
+  width:  14px;
+  height: 14px;
+  fill:   black;
+}
+
+.adminArticle {
+    width: 100%;
+    max-width: 1366px;
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+.articleLine:first-child {
+    display: flex;
+    background: var(--headerColor);
+    text-align: center;
+}
+
+.articleLine:first-child h2 {
+    flex: 1;
+    margin: 0;
+    font-size: 20px;
+}
+
+.articleLine:nth-child(even) {
+    background: var(--backgroundColor);
+}
+.articleLine:nth-child(odd) {
+    background: var(--headerPaleColor);
+}
+
+.title,
+.content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--commentColor);
+}
+
+a .icon {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+a:hover .icon {
+    fill: var(--titleColor);
+}
+
+/* COMMENT */
+
+.commentContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    background: var(--headerPaleColor);
+}
+
+.commentContainer .smiley {
+    font-size: 50px;
+    line-height: 1;
+    color: var(--quoteColor);
+    user-select: none;
+    align-self: center;
+}
+
+.commentContainer .detailComment {
+    flex: 1;
+}
+
+.deleteCommentButton {
+    align-self: center;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    background: var(--titleColor);
+    border-radius: 4px;
+}

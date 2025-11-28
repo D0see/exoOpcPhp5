@@ -3,6 +3,7 @@
      * Ce template affiche un article et ses commentaires.
      * Il affiche également un formulaire pour ajouter un commentaire.
      */
+    $adminIsConnected = isset($_SESSION['user']);
 ?>
 
 <article class="mainArticle">
@@ -32,7 +33,9 @@
                 echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
                 echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
                 echo '  </div>';
-                echo ' <a class="deleteCommentButton" href="index.php?action=deleteComment&id=' . $comment->getId() . '">supprimer le commentaire</a>';
+                if ($adminIsConnected) {
+                    echo ' <a class="deleteCommentButton" href="index.php?action=deleteComment&id=' . $comment->getId() . '">supprimer le commentaire</a>';
+                }
                 echo '</li>';
             }               
             echo '</ul>';

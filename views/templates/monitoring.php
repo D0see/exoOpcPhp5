@@ -6,10 +6,6 @@
     include 'icons/arrow-down.svg';
     include 'icons/arrow-up.svg';
 
-    if (isset($_GET['orderDir'])) {
-
-    }
-
     $pdo = DBManager::getInstance()->getPDO();
 
     $query = 
@@ -17,27 +13,27 @@
             left join comment c on a.id = c.id_article
             group BY a.id ';
 
-    $orderByParam = '';
-
-    //todo add enum here ?
+    $orderByQuery = '';
 
     if (isset($_GET['filterVar']) && isset($_GET['orderDir'])) {
         if ($_GET['orderDir'] === 'ASC' || $_GET['orderDir'] === 'DESC') {
             if (in_array($_GET['filterVar'], ['title', 'date_creation', 'views'])) {
-                $orderByParam = 'order by a.' . $_GET['filterVar'];
+                $orderByQuery = 'order by a.' . $_GET['filterVar'];
             } else if ($_GET['filterVar'] = 'num_of_comments') {
-                $orderByParam = 'order by num_of_comments';
+                $orderByQuery = 'order by num_of_comments';
             }
 
-            $orderByParam .= ' ' . $_GET['orderDir'];
+            $orderByQuery .= ' ' . $_GET['orderDir'];
         }
     }
     
-    $query .= $orderByParam;
+    $query .= $orderByQuery;
 
     $statement = $pdo->prepare($query);
     $statement->execute();
     $articles = $statement->fetchAll();
+
+    $articles = Utils::sanitizeAssociativeArray($articles);
 
 ?>
 
@@ -46,52 +42,52 @@
 <div class="adminArticle">
     <div class="articleLine">
         <div class="content">
-            <a href='index.php?action=monitoring&filterVar=title&orderDir=ASC'>
+            <a href='index.php?action=monitoring&filterVar=title&orderDir=ASC' aria-label='trier par titres ascendant'>
                 <svg class="icon" aria-hidden="true">
                     <use href="icons/arrow-up.svg#arrow-up"></use>
                 </svg>
             </a>
             <h2>title</h2>
-            <a href='index.php?action=monitoring&filterVar=title&orderDir=DESC'>
+            <a href='index.php?action=monitoring&filterVar=title&orderDir=DESC' aria-label='trier par titres descendant'>
                 <svg class="icon" aria-hidden="true">
                     <use href="icons/arrow-down.svg#arrow-down"></use>
                 </svg>
             </a>
         </div>
         <div class="content">
-            <a href='index.php?action=monitoring&filterVar=num_of_comments&orderDir=ASC'>
+            <a href='index.php?action=monitoring&filterVar=num_of_comments&orderDir=ASC' aria-label='trier par nombre de commentaires ascendant'>
                 <svg class="icon" aria-hidden="true">
                     <use href="icons/arrow-up.svg#arrow-up"></use>
                 </svg>
             </a>
             <h2>number of comments</h2>
-            <a href='index.php?action=monitoring&filterVar=num_of_comments&orderDir=DESC'>
+            <a href='index.php?action=monitoring&filterVar=num_of_comments&orderDir=DESC' aria-label='trier par nombre de commentaires descendant'>
                 <svg class="icon" aria-hidden="true">
                     <use href="icons/arrow-down.svg#arrow-down"></use>
                 </svg>
             </a>
         </div>
         <div class="content">
-            <a href='index.php?action=monitoring&filterVar=creation_date&orderDir=ASC'>
+            <a href='index.php?action=monitoring&filterVar=date_creation&orderDir=ASC' aria-label='trier par date de création ascendant'>
                 <svg class="icon" aria-hidden="true">
                     <use href="icons/arrow-up.svg#arrow-up"></use>
                 </svg>
             </a>
             <h2>creation date</h2>
-            <a href='index.php?action=monitoring&filterVar=creation_date&orderDir=DESC'>
+            <a href='index.php?action=monitoring&filterVar=date_creation&orderDir=DESC' aria-label='trier par date de création descendant'>
                 <svg class="icon" aria-hidden="true">
                     <use href="icons/arrow-down.svg#arrow-down"></use>
                 </svg>
             </a>
         </div>
         <div class="content">
-            <a href='index.php?action=monitoring&filterVar=views&orderDir=ASC'>
+            <a href='index.php?action=monitoring&filterVar=views&orderDir=ASC' aria-label='trier par nombre de vues ascendant'>
                 <svg class="icon" aria-hidden="true">
                     <use href="icons/arrow-up.svg#arrow-up"></use>
                 </svg>
             </a>
             <h2>views</h2>
-            <a href='index.php?action=monitoring&filterVar=views&orderDir=DESC'>
+            <a href='index.php?action=monitoring&filterVar=views&orderDir=DESC' aria-label='trier par nombre de vues descendant'>
                 <svg class="icon" aria-hidden="true">
                     <use href="icons/arrow-down.svg#arrow-down"></use>
                 </svg>

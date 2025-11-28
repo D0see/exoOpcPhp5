@@ -87,4 +87,12 @@ class Utils {
         return $_REQUEST[$variableName] ?? $defaultValue;
     }
 
+    public static function sanitizeAssociativeArray(array $twoDArr): array {
+        return array_map(function($arr) {
+            foreach (array_keys($arr) as $key) {
+                $arr[$key] = htmlspecialchars($arr[$key]);
+            }
+            return $arr;
+        }, $twoDArr);
+    }
 }
